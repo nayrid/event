@@ -16,7 +16,7 @@ maven {
 And then use this library (change `(the latest version)` to the latest version):
 
 ```kotlin
-compile("com.nayrid.event:event-api:(the latest version)")
+implementation("com.nayrid.event:event-api:(the latest version)")
 ```
 
 ## Benchmarks
