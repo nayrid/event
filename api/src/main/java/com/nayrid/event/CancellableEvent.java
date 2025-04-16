@@ -23,6 +23,7 @@
  */
 package com.nayrid.event;
 
+import com.nayrid.event.bus.SimpleEventBus;
 import org.jetbrains.annotations.Contract;
 
 /**
@@ -31,6 +32,16 @@ import org.jetbrains.annotations.Contract;
  * @since 1.0.0
  */
 public interface CancellableEvent extends Event {
+
+    /**
+     * Publishes this event on the {@link SimpleEventBus#global() global EventBus} and returns
+     * {@code true} if it was <strong><u>not</u></strong> cancelled.
+     *
+     * @since 1.0.0
+     */
+    default boolean publishAndReturn() {
+        return SimpleEventBus.global().publish(this);
+    }
 
     /**
      * Gets if the event has been cancelled.

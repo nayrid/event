@@ -24,7 +24,7 @@
 package com.nayrid.event;
 
 import com.nayrid.event.annotation.AnnoKey;
-import com.nayrid.event.bus.EventBus;
+import com.nayrid.event.bus.SimpleEventBus;
 import com.nayrid.event.bus.config.EventBusConfig;
 import com.nayrid.event.bus.subscription.EventSubscriber;
 import java.util.concurrent.TimeUnit;
@@ -47,21 +47,21 @@ public class EventBenchmark {
 
     @Param({"1", "10", "100"}) private int subscriberCount;
 
-    private EventBus baselineBus;
-    private EventBus cancellingBus;
+    private SimpleEventBus baselineBus;
+    private SimpleEventBus cancellingBus;
 
     @Setup(Level.Iteration)
     public void setup() {
-        this.baselineBus = EventBus.create(
+        this.baselineBus = SimpleEventBus.create(
             EventBusConfig.eventBusConfig().acceptsCancelled(true).build());
-        for (int i = 0; i < subscriberCount; i++) {
+        for (int i = 0; i < this.subscriberCount; i++) {
             this.baselineBus.subscribe(CountingEvent.class, event -> {
             });
         }
 
-        this.cancellingBus = EventBus.create(
+        this.cancellingBus = SimpleEventBus.create(
             EventBusConfig.eventBusConfig().acceptsCancelled(true).build());
-        for (int i = 0; i < subscriberCount / 2; i++) {
+        for (int i = 0; i < this.subscriberCount / 2; i++) {
             this.cancellingBus.subscribe(CancellationEvent.class, event -> {
             });
         }
@@ -108,11 +108,11 @@ public class EventBenchmark {
     @State(Scope.Benchmark)
     public static class SubscribeUnsubscribeState {
 
-        EventBus bus;
+        SimpleEventBus bus;
 
         @Setup(Level.Invocation)
         public void setup() {
-            this.bus = EventBus.create(EventBusConfig.eventBusConfig().build());
+            this.bus = SimpleEventBus.create(EventBusConfig.eventBusConfig().build());
         }
 
     }

@@ -21,47 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.nayrid.event.annotation;
+package com.nayrid.event.bus;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.Optional;
-import net.kyori.adventure.key.Key;
+import com.nayrid.event.bus.config.EventBusConfig;
+import java.util.concurrent.atomic.AtomicReference;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
 /**
- * Utilities for working with and parsing annotations.
+ * A simple event bus.
  *
  * @since 1.0.0
  */
 @NullMarked
-public final class AnnotationUtil {
+public class SimpleEventBus extends AbstractEventBus<EventBusConfig> {
 
-    private AnnotationUtil() {
+    private static final AtomicReference<SimpleEventBus> GLOBAL_BUS = new AtomicReference<>(
+        create(EventBusConfig.eventBusConfig().build()));
+
+    SimpleEventBus(final EventBusConfig config) {
+        super(config);
     }
 
     /**
-     * Gets the key from an annotated element with {@link AnnoKey}.
+     * Gets the global {@link SimpleEventBus}.
      *
-     * @param element the annotated element
-     * @return the key
+     * @return the global event bus
      * @since 1.0.0
      */
-    @SuppressWarnings("DataFlowIssue")
-    public static Optional<Key> key(final AnnotatedElement element) {
-        if (!element.isAnnotationPresent(AnnoKey.class)) {
-            return Optional.empty();
-        }
-
-        return Optional.ofNullable(key(element.getAnnotation(AnnoKey.class)));
+    public static SimpleEventBus global() {
+        return GLOBAL_BUS.get();
     }
 
-    private static @Nullable Key key(final AnnoKey annoKey) {
-        try {
-            return Key.key(annoKey.namespace(), annoKey.value());
-        } catch (final RuntimeException runtimeException) {
-            return null;
-        }
+    /**
+     * Creates a new {@link SimpleEventBus}.
+     *
+     * @param config the configuration
+     * @return an event bus
+     * @since 1.0.0
+     */
+    public static SimpleEventBus create(final EventBusConfig config) {
+        return new SimpleEventBus(config);
+    }
+
+    @Override
+    public String examinableName() {
+        return SimpleEventBus.class.getSimpleName();
     }
 
 }

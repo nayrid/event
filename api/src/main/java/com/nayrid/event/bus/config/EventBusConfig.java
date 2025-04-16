@@ -31,13 +31,12 @@ import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NullMarked;
 
 /**
- * Configuration for the behaviour of {@link EventBus}.
+ * Configuration for the behaviour of an {@link EventBus}.
  *
  * @since 1.0.0
  */
 @NullMarked
-public sealed interface EventBusConfig extends Buildable<EventBusConfig, EventBusConfig.Builder> permits
-    EventBusConfigImpl {
+public interface EventBusConfig extends Buildable<EventBusConfig, EventBusConfig.Builder> {
 
     /**
      * Creates a new {@link EventBusConfig} builder.
@@ -71,8 +70,7 @@ public sealed interface EventBusConfig extends Buildable<EventBusConfig, EventBu
      *
      * @since 1.0.0
      */
-    sealed interface Builder extends AbstractBuilder<EventBusConfig> permits
-        EventBusConfigImpl.BuilderImpl {
+    interface Builder extends AbstractBuilder<EventBusConfig> {
 
         int DEFAULT_PRIORITY = 0;
         boolean DEFAULT_ACCEPTS_CANCELLED = false;
