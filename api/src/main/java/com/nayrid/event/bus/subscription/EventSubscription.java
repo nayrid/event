@@ -52,7 +52,7 @@ public interface EventSubscription<T extends Event> extends Comparable<EventSubs
     boolean acceptsCancelled();
 
     /**
-     * Gets the function to run when this subscription is posted to.
+     * Gets the function to run when this event is published.
      *
      * @return the function
      * @since 1.0.0

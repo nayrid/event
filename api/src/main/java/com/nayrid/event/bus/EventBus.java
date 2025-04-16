@@ -109,13 +109,13 @@ public final class EventBus implements Examinable {
     }
 
     /**
-     * Posts an event to all subscribers.
+     * Publishes an event to all subscribers.
      *
      * @param event the event instance
      * @param <T>   the event type
      * @since 1.0.0
      */
-    public <T extends Event> void post(final T event) {
+    public <T extends Event> void publish(final T event) {
         @SuppressWarnings("unchecked")
         final EventRegistration<T> registration = (EventRegistration<T>) this.getOrCreateRegistration(event.getClass());
         for (EventSubscription<T> subscription : registration.subscribers()) {
@@ -302,7 +302,7 @@ public final class EventBus implements Examinable {
     /**
      * Concrete implementation of {@link EventRegistration} that uses a volatile unmodifiable list
      * to hold subscriptions. Subscription and un-subscription are performed under synchronization
-     * while event posting requires only a volatile read.
+     * while event publishing requires only a volatile read.
      *
      * @param <T> the event type
      * @since 1.0.0

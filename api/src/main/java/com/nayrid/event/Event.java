@@ -40,12 +40,12 @@ import org.jspecify.annotations.NullMarked;
 public interface Event extends Keyed {
 
     /**
-     * Posts this event on the {@link EventBus#global() global EventBus}.
+     * Publishes this event on the {@link EventBus#global() global EventBus}.
      *
      * @since 1.0.0
      */
-    default void post() {
-        EventBus.global().post(this);
+    default void publish() {
+        EventBus.global().publish(this);
     }
 
     /**

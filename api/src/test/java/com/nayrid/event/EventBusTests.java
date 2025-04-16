@@ -82,16 +82,16 @@ public class EventBusTests {
         bus.subscribe(IntegerEvent.class, event -> cancelledSubscriptionExecuted.set(true), 5,
             true);
 
-        bus.post(new IntegerEvent(0));
+        bus.publish(new IntegerEvent(0));
 
         assertTrue(cancelledSubscriptionExecuted.get(),
             "Subscription that accepts cancelled events should have been executed");
     }
 
     @Test
-    public void testGlobalEventBusPosting() {
-        assertDoesNotThrow(() -> new IntegerEvent(1).post(),
-            "Posting the event via its post() method should not throw an exception");
+    public void testGlobalEventBusPublishing() {
+        assertDoesNotThrow(() -> new IntegerEvent(1).publish(),
+            "Publishing the event via its publish() method should not throw an exception");
     }
 
     @AnnoKey(namespace = EventBusTests.NAMESPACE, value = "integer")
