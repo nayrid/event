@@ -24,6 +24,7 @@
 package com.nayrid.event;
 
 import com.nayrid.event.annotation.AnnoKey;
+import com.nayrid.event.annotation.AnnotationUtil;
 import com.nayrid.event.bus.EventBus;
 import com.nayrid.event.bus.config.EventBusConfig;
 import com.nayrid.event.bus.subscription.EventSubscriber;
@@ -71,6 +72,8 @@ public class EventBenchmark {
             this.cancellingBus.subscribe(CancellationEvent.class, event -> {
             }, 2, true);
         }
+
+        AnnotationUtil.invalidateKeyCache();
     }
 
     @Benchmark

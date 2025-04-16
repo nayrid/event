@@ -73,6 +73,15 @@ public final class AnnotationUtil {
         }
     }
 
+    /**
+     * Flushes the cache used to map {@link AnnotatedElement} to {@link Key} through {@link AnnoKey}.
+     *
+     * @since 1.0.0
+     */
+    public static void invalidateKeyCache() {
+        ANNOTATED_KEY_CACHE.invalidateAll();
+    }
+
     private AnnotationUtil() {
     }
 
