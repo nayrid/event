@@ -1,6 +1,8 @@
 # event
 
-An events library. Each event has a key, which makes it more intuitive for end users to interact
+An events library made with the Minecraft modding ecosystem in mind.
+
+Each event has a [key](https://jd.advntr.dev/key/latest/net/kyori/adventure/key/Key.html), which makes it more intuitive for end users to interact
 with events in things like commands or configuration files.
 
 ## Gradle
@@ -20,6 +22,9 @@ implementation("com.nayrid.event:event-api:(the latest version)")
 ```
 
 ## Benchmarks
+
+> [!NOTE]
+> These benchmarks are **not** provided with the intention of leading you to believe this is the *fastest* event library out there, just to show it's performant.
 
 
 | Benchmark                                        | subscriberCount | Mode  | Cnt | Score        | Error         | Units |
