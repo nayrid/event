@@ -39,8 +39,11 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 public @interface AnnoKey {
+
     @Namespace String namespace();
+
     @Value String value();
+
 }

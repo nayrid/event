@@ -25,14 +25,15 @@ package com.nayrid.event;
 
 import com.nayrid.event.annotation.AnnoKey;
 import com.nayrid.event.annotation.AnnotationUtil;
-import com.nayrid.event.bus.EventBus;
+import com.nayrid.event.bus.SimpleEventBus;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
 import org.jetbrains.annotations.ApiStatus.NonExtendable;
 import org.jspecify.annotations.NullMarked;
 
 /**
- * Marker interfaces for events. Implementing classes <strong>must</strong> be annotated with {@link AnnoKey}.
+ * Marker interfaces for events. Implementing classes <strong>must</strong> be annotated with
+ * {@link AnnoKey}.
  *
  * @since 1.0.0
  */
@@ -40,27 +41,25 @@ import org.jspecify.annotations.NullMarked;
 public interface Event extends Keyed {
 
     /**
-     * Publishes this event on the {@link EventBus#global() global EventBus}.
+     * Publishes this event on the {@link SimpleEventBus#global() global EventBus}.
      *
      * @since 1.0.0
      */
     default void publish() {
-        EventBus.global().publish(this);
+        SimpleEventBus.global().publish(this);
     }
 
     /**
-     * Gets if this event is being ran asynchronously.
+     * {@inheritDoc}
      *
-     * @return if the event is being ran async
-     * @since 1.0.0
+     * <p><strong>You should not, and do not need to, override this method.</strong></p>
      */
-    default boolean async() {
-        return false;
-    }
-
     @NonExtendable
     default /* final */ Key key() {
-        return AnnotationUtil.key(this.getClass()).orElseThrow(() -> new IllegalStateException("Event %s is not annotated with AnnoKey".formatted(this.getClass().getCanonicalName())));
+        return AnnotationUtil.key(this.getClass())
+            .orElseThrow(() -> new IllegalStateException(
+                "Event %s is not annotated with AnnoKey".formatted(
+                    this.getClass().getCanonicalName())));
     }
 
 }

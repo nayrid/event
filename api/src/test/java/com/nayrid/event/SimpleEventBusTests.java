@@ -24,7 +24,7 @@
 package com.nayrid.event;
 
 import com.nayrid.event.annotation.AnnoKey;
-import com.nayrid.event.bus.EventBus;
+import com.nayrid.event.bus.SimpleEventBus;
 import com.nayrid.event.bus.config.EventBusConfig;
 import com.nayrid.event.bus.subscription.EventSubscriber;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -35,18 +35,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @NullMarked
-public class EventBusTests {
+public class SimpleEventBusTests {
 
     public static final @Namespace String NAMESPACE = "nayrid";
-    private EventBus bus;
+    private SimpleEventBus bus;
 
     @BeforeEach
     public void setup() {
-        bus = EventBus.create(EventBusConfig.eventBusConfig().acceptsCancelled(true).build());
+        this.bus = SimpleEventBus.create(EventBusConfig.eventBusConfig().acceptsCancelled(true).build());
     }
 
     @Test
@@ -54,38 +55,47 @@ public class EventBusTests {
         final EventSubscriber<IntegerEvent> unsubscribedHandler = event -> fail(
             "This handler should not be invoked");
 
-        assertEquals(0, bus.keySet().size(), "EventBus should be empty initially");
+        assertEquals(0, this.bus.keySet().size(), "EventBus should be empty initially");
 
-        bus.subscribe(IntegerEvent.class, unsubscribedHandler);
-        assertEquals(1, bus.keySet().size(), "EventBus should have one registered event");
+        this.bus.subscribe(IntegerEvent.class, unsubscribedHandler);
+        assertEquals(1, this.bus.keySet().size(), "EventBus should have one registered event");
 
-        bus.unsubscribe(IntegerEvent.class, unsubscribedHandler);
+        this.bus.unsubscribe(IntegerEvent.class, unsubscribedHandler);
     }
 
     @Test
     public void testSubscriberPrioritiesAndCancellationHandling() {
-        bus.subscribe(IntegerEvent.class, event -> assertEquals(0, event.get(),
+        this.bus.subscribe(IntegerEvent.class, event -> assertEquals(0, event.get(),
             "Integer value should be unchanged at priority 0"), 0);
 
-        bus.subscribe(IntegerEvent.class, IntegerEvent::increment, 1);
+        this.bus.subscribe(IntegerEvent.class, IntegerEvent::increment, 1);
 
-        bus.subscribe(IntegerEvent.class, event -> assertEquals(1, event.get(),
+        this.bus.subscribe(IntegerEvent.class, event -> assertEquals(1, event.get(),
             "Integer value should have been incremented by priority 1"), 2);
 
-        bus.subscribe(IntegerEvent.class, event -> event.cancelled(true), 3);
+        this.bus.subscribe(IntegerEvent.class, event -> event.cancelled(true), 3);
 
-        bus.subscribe(IntegerEvent.class,
+        this.bus.subscribe(IntegerEvent.class,
             event -> fail("Event is cancelled, handler with priority 4 should not be invoked!"), 4,
             false);
 
         final AtomicBoolean cancelledSubscriptionExecuted = new AtomicBoolean(false);
-        bus.subscribe(IntegerEvent.class, event -> cancelledSubscriptionExecuted.set(true), 5,
+        this.bus.subscribe(IntegerEvent.class, event -> cancelledSubscriptionExecuted.set(true), 5,
             true);
 
-        bus.publish(new IntegerEvent(0));
+        this.bus.publish(new IntegerEvent(0));
 
         assertTrue(cancelledSubscriptionExecuted.get(),
             "Subscription that accepts cancelled events should have been executed");
+    }
+
+    @Test
+    public void testCancelledEventReturnMethod() {
+        final IntegerEvent cancelledEvent = new IntegerEvent(0);
+        cancelledEvent.cancelled(true);
+
+        assertFalse(this.bus.publish(cancelledEvent));
+        assertTrue(this.bus.publish(new IntegerEvent(0)));
     }
 
     @Test
@@ -94,7 +104,7 @@ public class EventBusTests {
             "Publishing the event via its publish() method should not throw an exception");
     }
 
-    @AnnoKey(namespace = EventBusTests.NAMESPACE, value = "integer")
+    @AnnoKey(namespace = SimpleEventBusTests.NAMESPACE, value = "integer")
     public static final class IntegerEvent implements CancellableEvent {
 
         private int integer;

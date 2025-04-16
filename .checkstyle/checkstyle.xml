@@ -158,7 +158,9 @@
         <module name="RequireEmptyLineBeforeBlockTagGroup"/>
 
         <!-- https://checkstyle.org/checks/coding/requirethis.html -->
-        <module name="RequireThis"/>
+        <module name="RequireThis">
+            <property name="validateOnlyOverlapping" value="false" />
+        </module>
 
         <!-- https://checkstyle.org/config_blocks.html#RightCurly -->
         <module name="RightCurly">

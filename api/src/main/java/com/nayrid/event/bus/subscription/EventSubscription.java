@@ -29,7 +29,7 @@ import org.jspecify.annotations.NullMarked;
 /**
  * A prioritized {@link EventSubscriber}.
  *
- * @param <T>        the event type
+ * @param <T> the event type
  * @since 1.0.0
  */
 @NullMarked
