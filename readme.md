@@ -37,4 +37,4 @@ compile("com.nayrid.event:event-api:(the latest version)")
 | EventBenchmark.benchmarkSubscribeUnsubscribe     | 10              | avgt  | 25  | 266.238      | ±5.027        | ns/op |
 | EventBenchmark.benchmarkSubscribeUnsubscribe     | 100             | avgt  | 25  | 265.728      | ±4.550        | ns/op |
 
-Benchmarks were ran on an `AMD Ryzen 5 3600X (12) @ 3.80 GHz`.
+Benchmarks were ran on an `AMD Ryzen 5 3600X (12) @ 3.80 GHz` at commit 2b41d6d3b4d917331be9521235ef061554965d11.
