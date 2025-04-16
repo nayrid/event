@@ -5,6 +5,7 @@ plugins {
 dependencies {
     api(libs.fastutil)
     api(libs.common)
+    api(libs.caffeine)
 
     api(platform(libs.adventure.bom))
     api("net.kyori:adventure-key")

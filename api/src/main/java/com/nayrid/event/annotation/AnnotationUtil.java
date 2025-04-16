@@ -23,8 +23,13 @@
  */
 package com.nayrid.event.annotation;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import java.lang.reflect.AnnotatedElement;
+import java.time.Duration;
+import java.util.Objects;
 import java.util.Optional;
+import net.kyori.adventure.key.InvalidKeyException;
 import net.kyori.adventure.key.Key;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -37,6 +42,12 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 public final class AnnotationUtil {
 
+    private static final Cache<AnnotatedElement, Optional<Key>> ANNOTATED_KEY_CACHE = Caffeine.newBuilder()
+        .maximumSize(250)
+        .expireAfterAccess(Duration.ofSeconds(150))
+        .expireAfterWrite(Duration.ofMinutes(5))
+        .build();
+
     /**
      * Gets the key from an annotated element with {@link AnnoKey}.
      *
@@ -45,13 +56,19 @@ public final class AnnotationUtil {
      * @since 1.0.0
      */
     public static Optional<Key> key(final AnnotatedElement element) {
-        return Optional.ofNullable(key(element.getAnnotation(AnnoKey.class)));
+        return ANNOTATED_KEY_CACHE.get(element, el -> {
+            if (!el.isAnnotationPresent(AnnoKey.class)) {
+                return Optional.empty();
+            }
+
+            return Optional.ofNullable(key(Objects.requireNonNull(el.getAnnotation(AnnoKey.class))));
+        });
     }
 
     private static @Nullable Key key(final AnnoKey annoKey) {
         try {
             return Key.key(annoKey.namespace(), annoKey.value());
-        } catch (final RuntimeException runtimeException) {
+        } catch (final InvalidKeyException invalidKeyException) {
             return null;
         }
     }
