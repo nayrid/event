@@ -9,7 +9,7 @@ me-champeau-jmh = "0.7.3"
 org-junit = "5.11.4"
 it-unimi-dsi-fastutil = "8.5.12"
 net-kyori-adventure = "4.20.0"
-com-nayrid-common = "1.1.0-SNAPSHOT"
+com-nayrid-common = "1.0.0-SNAPSHOT"
 
 [libraries]
 # build logic
@@ -27,4 +27,6 @@ jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version
 # libraries
 fastutil = { group = "it.unimi.dsi", name = "fastutil", version.ref = "it-unimi-dsi-fastutil" }
 adventure-bom = { group = "net.kyori", name = "adventure-bom", version.ref = "net-kyori-adventure" }
-common = { group = "com.nayrid.common", name = "common-api", version.ref = "com-nayrid-common" }
+common-api = { group = "com.nayrid.common", name = "common-api", version.ref = "com-nayrid-common" }
+common-examine = { group = "com.nayrid.common", name = "common-examine", version.ref = "com-nayrid-common" }
+

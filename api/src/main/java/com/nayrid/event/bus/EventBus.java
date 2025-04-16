@@ -25,7 +25,7 @@ package com.nayrid.event.bus;
 
 import com.nayrid.common.examine.AbstractExaminable;
 import com.nayrid.common.examine.reflect.Examine;
-import com.nayrid.common.util.StringUtils;
+import com.nayrid.common.examine.util.StringUtils;
 import com.nayrid.event.CancellableEvent;
 import com.nayrid.event.Event;
 import com.nayrid.event.annotation.AnnotationUtil;

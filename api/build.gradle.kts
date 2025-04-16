@@ -4,8 +4,10 @@ plugins {
 }
 
 dependencies {
-    api(libs.common)
-    jmh(libs.common)
+    api(libs.common.api)
+    api(libs.common.examine)
+    jmh(libs.common.api)
+    jmh(libs.common.examine)
 
     api(platform(libs.adventure.bom))
     jmh(platform(libs.adventure.bom))

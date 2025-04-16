@@ -23,6 +23,7 @@
  */
 package com.nayrid.event.bus.config;
 
+import com.nayrid.common.AbstractBuilder;
 import com.nayrid.common.Buildable;
 import com.nayrid.event.bus.EventBus;
 import com.nayrid.event.bus.config.EventBusConfigImpl.BuilderImpl;
@@ -70,7 +71,7 @@ public sealed interface EventBusConfig extends Buildable<EventBusConfig, EventBu
      *
      * @since 1.0.0
      */
-    sealed interface Builder extends com.nayrid.common.Builder<EventBusConfig> permits
+    sealed interface Builder extends AbstractBuilder<EventBusConfig> permits
         EventBusConfigImpl.BuilderImpl {
 
         int DEFAULT_PRIORITY = 0;
