@@ -44,4 +44,4 @@ implementation("com.nayrid.event:event-api:(the latest version)")
 | EventBenchmark.benchmarkSubscribeUnsubscribe         |      10         | avgt  | 25  |     205.864      | ± 2.651          | ns/op |
 | EventBenchmark.benchmarkSubscribeUnsubscribe         |      100        | avgt  | 25  |     209.395      | ± 2.189          | ns/op |
 
-Benchmarks were ran on an `AMD Ryzen 5 3600X (12) @ 3.80 GHz` at commit [dcf305e](https://github.com/nayrid/event/commit/dcf305ebebca104931de7d6104620c8159797d19).
+Benchmarks were ran on an `AMD Ryzen 5 3600X (12) @ 3.80 GHz` on OpenJDK (Coretto) 21 at commit [dcf305e](https://github.com/nayrid/event/commit/dcf305ebebca104931de7d6104620c8159797d19).
