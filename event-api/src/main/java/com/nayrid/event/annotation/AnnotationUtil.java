@@ -25,6 +25,8 @@ package com.nayrid.event.annotation;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import net.kyori.adventure.key.InvalidKeyException;
 import net.kyori.adventure.key.Key;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -37,6 +39,8 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 public final class AnnotationUtil {
 
+    private static final ConcurrentHashMap<AnnotatedElement, Optional<Key>> KEY_CACHE = new ConcurrentHashMap<>();
+
     private AnnotationUtil() {
     }
 
@@ -47,21 +51,33 @@ public final class AnnotationUtil {
      * @return the key
      * @since 1.0.0
      */
-    @SuppressWarnings("DataFlowIssue")
     public static Optional<Key> key(final AnnotatedElement element) {
+        return KEY_CACHE.computeIfAbsent(element, AnnotationUtil::computeKey);
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    private static Optional<Key> computeKey(final AnnotatedElement element) {
         if (!element.isAnnotationPresent(AnnoKey.class)) {
             return Optional.empty();
         }
-
-        return Optional.ofNullable(key(element.getAnnotation(AnnoKey.class)));
+        return Optional.ofNullable(transformAnnoKey(element.getAnnotation(AnnoKey.class)));
     }
 
-    private static @Nullable Key key(final AnnoKey annoKey) {
+    private static @Nullable Key transformAnnoKey(final AnnoKey annoKey) {
         try {
             return Key.key(annoKey.namespace(), annoKey.value());
-        } catch (final RuntimeException runtimeException) {
+        } catch (final InvalidKeyException invalidKeyException) {
             return null;
         }
+    }
+
+    /**
+     * Clears the key cache.
+     *
+     * @since 1.0.0
+     */
+    public static void clearCache() {
+        KEY_CACHE.clear();
     }
 
 }
