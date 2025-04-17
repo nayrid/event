@@ -109,8 +109,12 @@ public class EventBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void benchmarkAnnotationUtilKey() {
+    public void benchmarkAnnotationUtilKey(final AnnotationUtilState state) {
         AnnotationUtil.key(CountingEvent.class);
+    }
+
+    @State(Scope.Thread)
+    public static class AnnotationUtilState {
     }
 
     @State(Scope.Benchmark)
