@@ -26,8 +26,6 @@ implementation("com.nayrid.event:event-api:(the latest version)")
 > [!NOTE]
 > These benchmarks are **not** provided with the intention of leading you to believe this is the *fastest* event library out there, just to show it's performant.
 
-#### Update 1 Benchmark Results
-
 | Benchmark                                            | subscriberCount | Mode  | Cnt | Score            | Error            | Units |
 |------------------------------------------------------|:---------------:|:-----:|:---:|:----------------:|:----------------:|:-----:|
 | EventBenchmark.benchmarkBaselineEventPublish         |       1         | thrpt | 25  | 51,392,326.896   | ± 277,965.483    | ops/s |
