@@ -4,7 +4,7 @@
 <suppressions>
 
     <!-- more lenient on tests -->
-    <suppress files="api[\\/]src[\\/](test(?:Fixtures)?|jmh)[\\/]java[\\/].*"
+    <suppress files="event-(api)[\\/]src[\\/](test(?:Fixtures)?|jmh)[\\/]java[\\/].*"
               checks="(IllegalImport|MethodName|MatchXpath|FilteringWriteTag|JavadocPackage|MissingJavadoc.*)"/>
 
 </suppressions>
