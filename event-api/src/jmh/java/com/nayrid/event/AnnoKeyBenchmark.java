@@ -1,7 +1,7 @@
 package com.nayrid.event;
 
-import com.nayrid.event.testdata.CountingEvent;
 import com.nayrid.event.annotation.AnnotationUtil;
+import com.nayrid.event.testdata.CountingEvent;
 import java.util.concurrent.TimeUnit;
 import org.jspecify.annotations.NullMarked;
 import org.openjdk.jmh.annotations.Benchmark;
