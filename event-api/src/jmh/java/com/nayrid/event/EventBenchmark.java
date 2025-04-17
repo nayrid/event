@@ -24,6 +24,7 @@
 package com.nayrid.event;
 
 import com.nayrid.event.annotation.AnnoKey;
+import com.nayrid.event.annotation.AnnotationUtil;
 import com.nayrid.event.bus.SimpleEventBus;
 import com.nayrid.event.bus.config.EventBusConfig;
 import com.nayrid.event.bus.subscription.EventSubscriber;
@@ -103,6 +104,13 @@ public class EventBenchmark {
     @Threads(4)
     public void benchmarkConcurrentEventPublish() {
         this.baselineBus.publish(new CountingEvent());
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    public void benchmarkAnnotationUtilKey() {
+        AnnotationUtil.key(CountingEvent.class);
     }
 
     @State(Scope.Benchmark)
