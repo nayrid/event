@@ -27,6 +27,6 @@ jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version
 # libraries
 fastutil = { group = "it.unimi.dsi", name = "fastutil", version.ref = "it-unimi-dsi-fastutil" }
 adventure-bom = { group = "net.kyori", name = "adventure-bom", version.ref = "net-kyori-adventure" }
-common-api = { group = "com.nayrid.common", name = "common-api", version.ref = "com-nayrid-common" }
-common-examine = { group = "com.nayrid.common", name = "common-examine", version.ref = "com-nayrid-common" }
+common-api = { group = "com.nayrid", name = "common-api", version.ref = "com-nayrid-common" }
+common-examine = { group = "com.nayrid", name = "common-examine", version.ref = "com-nayrid-common" }
 

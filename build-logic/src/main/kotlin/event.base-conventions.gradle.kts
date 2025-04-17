@@ -72,8 +72,8 @@ tasks {
                 "https://javadoc.io/doc/org.jetbrains/annotations/26.0.2/",
                 "https://javadoc.io/doc/net.kyori/examination-api/1.3.0",
                 "https://jd.advntr.dev/key/${libs.versions.net.kyori.adventure.get()}/", 
-                "https://repo.nayrid.com/javadoc/${if (libs.versions.com.nayrid.common.get().endsWith("-SNAPSHOT")) "snapshots" else "releases"}/com/nayrid/common/common-api/${libs.versions.com.nayrid.common.get()}/raw/",
-                "https://repo.nayrid.com/javadoc/${if (libs.versions.com.nayrid.common.get().endsWith("-SNAPSHOT")) "snapshots" else "releases"}/com/nayrid/common/common-examine/${libs.versions.com.nayrid.common.get()}/raw/",
+                "https://repo.nayrid.com/javadoc/${if (libs.versions.com.nayrid.common.get().endsWith("-SNAPSHOT")) "snapshots" else "releases"}/com/nayrid/common-api/${libs.versions.com.nayrid.common.get()}/raw/",
+                "https://repo.nayrid.com/javadoc/${if (libs.versions.com.nayrid.common.get().endsWith("-SNAPSHOT")) "snapshots" else "releases"}/com/nayrid/common-examine/${libs.versions.com.nayrid.common.get()}/raw/",
             )
             tags(
                 "apiNote:a:API Note:",
