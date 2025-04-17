@@ -19,7 +19,7 @@ public class AnnoKeyBenchmark {
 
     @Setup(Level.Iteration)
     public void setup() {
-
+        AnnotationUtil.clearCache();
     }
 
     @Benchmark
