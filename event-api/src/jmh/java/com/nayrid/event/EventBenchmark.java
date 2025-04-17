@@ -23,11 +23,11 @@
  */
 package com.nayrid.event;
 
-import com.nayrid.event.annotation.AnnoKey;
-import com.nayrid.event.annotation.AnnotationUtil;
 import com.nayrid.event.bus.SimpleEventBus;
 import com.nayrid.event.bus.config.EventBusConfig;
 import com.nayrid.event.bus.subscription.EventSubscriber;
+import com.nayrid.event.testdata.CancellationEvent;
+import com.nayrid.event.testdata.CountingEvent;
 import java.util.concurrent.TimeUnit;
 import org.jspecify.annotations.NullMarked;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -106,17 +106,6 @@ public class EventBenchmark {
         this.baselineBus.publish(new CountingEvent());
     }
 
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void benchmarkAnnotationUtilKey(final AnnotationUtilState state) {
-        AnnotationUtil.key(CountingEvent.class);
-    }
-
-    @State(Scope.Thread)
-    public static class AnnotationUtilState {
-    }
-
     @State(Scope.Benchmark)
     public static class SubscribeUnsubscribeState {
 
@@ -125,28 +114,6 @@ public class EventBenchmark {
         @Setup(Level.Invocation)
         public void setup() {
             this.bus = SimpleEventBus.create(EventBusConfig.eventBusConfig().build());
-        }
-
-    }
-
-    @AnnoKey(namespace = "benchmark", value = "counting")
-    public static final class CountingEvent implements Event {
-
-    }
-
-    @AnnoKey(namespace = "benchmark", value = "cancellation")
-    public static final class CancellationEvent implements CancellableEvent {
-
-        private boolean cancelled = false;
-
-        @Override
-        public boolean cancelled() {
-            return this.cancelled;
-        }
-
-        @Override
-        public void cancelled(final boolean cancelled) {
-            this.cancelled = cancelled;
         }
 
     }
