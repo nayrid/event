@@ -26,20 +26,22 @@ implementation("com.nayrid.event:event-api:(the latest version)")
 > [!NOTE]
 > These benchmarks are **not** provided with the intention of leading you to believe this is the *fastest* event library out there, just to show it's performant.
 
+#### Update 1 Benchmark Results
 
-| Benchmark                                        | subscriberCount | Mode  | Cnt | Score        | Error         | Units |
-|--------------------------------------------------|-----------------|-------|-----|--------------|---------------|-------|
-| EventBenchmark.benchmarkBaselineEventPublish     | 1               | thrpt | 25  | 17615247.430 | ±1593356.141  | ops/s |
-| EventBenchmark.benchmarkBaselineEventPublish     | 10              | thrpt | 25  | 14667626.669 | ±806933.598   | ops/s |
-| EventBenchmark.benchmarkBaselineEventPublish     | 100             | thrpt | 25  | 7707699.186  | ±102897.107   | ops/s |
-| EventBenchmark.benchmarkCancellationEventPublish | 1               | thrpt | 25  | 17188573.251 | ±554891.187   | ops/s |
-| EventBenchmark.benchmarkCancellationEventPublish | 10              | thrpt | 25  | 8176651.842  | ±86845.513    | ops/s |
-| EventBenchmark.benchmarkCancellationEventPublish | 100             | thrpt | 25  | 1465157.276  | ±11636.695    | ops/s |
-| EventBenchmark.benchmarkConcurrentEventPublish   | 1               | thrpt | 25  | 75325007.271 | ±1667600.885  | ops/s |
-| EventBenchmark.benchmarkConcurrentEventPublish   | 10              | thrpt | 25  | 61745343.944 | ±1185301.021  | ops/s |
-| EventBenchmark.benchmarkConcurrentEventPublish   | 100             | thrpt | 25  | 29693594.523 | ±1385912.681  | ops/s |
-| EventBenchmark.benchmarkSubscribeUnsubscribe     | 1               | avgt  | 25  | 264.398      | ±3.294        | ns/op |
-| EventBenchmark.benchmarkSubscribeUnsubscribe     | 10              | avgt  | 25  | 266.238      | ±5.027        | ns/op |
-| EventBenchmark.benchmarkSubscribeUnsubscribe     | 100             | avgt  | 25  | 265.728      | ±4.550        | ns/op |
+| Benchmark                                            | subscriberCount | Mode  | Cnt | Score            | Error            | Units |
+|------------------------------------------------------|:---------------:|:-----:|:---:|:----------------:|:----------------:|:-----:|
+| EventBenchmark.benchmarkBaselineEventPublish         |       1         | thrpt | 25  | 51,392,326.896   | ± 277,965.483    | ops/s |
+| EventBenchmark.benchmarkBaselineEventPublish         |      10         | thrpt | 25  | 33,798,162.123   | ± 715,198.909    | ops/s |
+| EventBenchmark.benchmarkBaselineEventPublish         |      100        | thrpt | 25  | 11,001,671.906   | ± 82,515.552     | ops/s |
+| EventBenchmark.benchmarkCancellationEventPublish     |       1         | thrpt | 25  | 53,373,607.112   | ± 254,794.504    | ops/s |
+| EventBenchmark.benchmarkCancellationEventPublish     |      10         | thrpt | 25  | 12,781,271.023   | ± 79,251.440     | ops/s |
+| EventBenchmark.benchmarkCancellationEventPublish     |      100        | thrpt | 25  |  1,729,370.344   | ± 8,333.286      | ops/s |
+| EventBenchmark.benchmarkConcurrentEventPublish       |       1         | thrpt | 25  | 197,034,216.432  | ± 2,554,115.648  | ops/s |
+| EventBenchmark.benchmarkConcurrentEventPublish       |      10         | thrpt | 25  | 130,922,888.571  | ± 2,005,071.726  | ops/s |
+| EventBenchmark.benchmarkConcurrentEventPublish       |      100        | thrpt | 25  |  42,853,366.206  | ± 265,138.816    | ops/s |
+| AnnoKeyBenchmark.benchmarkAnnotationUtilKey          |      N/A        | avgt  | 25  |       4.038      | ± 0.041          | ns/op |
+| EventBenchmark.benchmarkSubscribeUnsubscribe         |       1         | avgt  | 25  |     205.447      | ± 3.347          | ns/op |
+| EventBenchmark.benchmarkSubscribeUnsubscribe         |      10         | avgt  | 25  |     205.864      | ± 2.651          | ns/op |
+| EventBenchmark.benchmarkSubscribeUnsubscribe         |      100        | avgt  | 25  |     209.395      | ± 2.189          | ns/op |
 
-Benchmarks were ran on an `AMD Ryzen 5 3600X (12) @ 3.80 GHz` at commit [2b41d6d](https://github.com/nayrid/event/commit/2b41d6d3b4d917331be9521235ef061554965d11).
+Benchmarks were ran on an `AMD Ryzen 5 3600X (12) @ 3.80 GHz` on OpenJDK (Coretto) 21 at commit [dcf305e](https://github.com/nayrid/event/commit/dcf305ebebca104931de7d6104620c8159797d19).
